@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75vh;
+    height: 75vh;
+}
+
+.cell {
+    display: flex;
+    height: 25vh;
+    width: 25vh;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+}
+
+/* #top-left {
+    border-bottom: 4px solid red;
+    border-right: 4px solid red;
+}
+
+#top-center {
+    border-bottom: 4px solid red;
+} */
