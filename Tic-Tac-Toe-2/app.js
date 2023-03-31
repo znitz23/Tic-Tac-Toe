@@ -1,17 +1,18 @@
 const state = {};
 
 
+
 const resetState = () => {
     state.main = [
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
-    { value: '', isOccupied: false },
+    { value: ''},
+    { value: ''},
+    { value: ''},
+    { value: ''},
+    { value: ''},
+    { value: ''},
+    { value: ''},
+    { value: ''},
+    { value: ''},
 ];
 state.playerNames = ['', ''];
 state.whoGoesFirst = '';
@@ -40,7 +41,7 @@ main.id = 'board';
 const renderPlayer = () => {
     
     if(!state.playerNames[0] || !state.playerNames[1]){
-
+        
         
         playerInfo.appendChild(playerNames);
         
@@ -64,7 +65,14 @@ const renderPlayer = () => {
     body.appendChild(playerInfo);
 }
 
+function removeChildNodes(parent){
+    while(parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 const renderBoard = () => {
+    removeChildNodes(main);
     for(let i = 0; i < state.main.length; i++){
         const squareElem = document.createElement('div');
         main.appendChild(squareElem);
@@ -85,32 +93,82 @@ const startingTurnRadomizer = () => {
     return firstPlayer
   }
 
-function takeATurn(cellIdx){
+const randomSquareIndex = () => {
+    randomNum = Math.floor((Math.random() * 9));
+    return randomIndex;
+}
+
+// const computerTurn = () => {
+//     let randomCellIdx = randomOpenSquare()
+//     if(state.whoGoesFirst === state.currentPlayerIndex){
+//         state.main[randomCellIdx].value = 'X';
+//         squareElem.innerText = 'X';
+//         render();
+//     }else{state.main[randomCellIdx].value = 'O'
+//         squareElem.innerText = 'O';
+//         render();
+// }
+// }
+
+const checkForWinner = () => {
+
+    if(document.getElementById("0").innerText && document.getElementById("1").innerText && document.getElementById("2").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if(document.getElementById("3").innerText && document.getElementById("4").innerText && document.getElementById("5").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if(document.getElementById("6").innerText && document.getElementById("7").innerText && document.getElementById("8").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if(document.getElementById("0").innerText && document.getElementById("3").innerText && document.getElementById("6").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if(document.getElementById("1").innerText && document.getElementById("4").innerText && document.getElementById("7").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if(document.getElementById("2").innerText && document.getElementById("5").innerText && document.getElementById("8").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if(document.getElementById("0").innerText && document.getElementById("4").innerText && document.getElementById("8").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if(document.getElementById("2").innerText && document.getElementById("4").innerText && document.getElementById("6").innerText){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else {
+        state.currentPlayerIndex = Math.abs(state.currentPlayerIndex - 1);
+    // if(state.playerNames[1] === 'Computer'){
+    //     computerTurn()
+    //     };
+}
+}
+
+
+
+
+function takeATurn(cellIdx) {
     const squareElem = document.getElementById(cellIdx);
     if(state.whoGoesFirst === state.currentPlayerIndex){
         state.main[cellIdx].value = 'X';
         squareElem.innerText = 'X';
+        render();
     }else{state.main[cellIdx].value = 'O'
         squareElem.innerText = 'O';
-};
-    state.currentPlayerIndex = Math.abs(state.currentPlayerIndex - 1);
+        render();
+    }
+    checkForWinner()
 }
+
+
 
 main.addEventListener('click', (event) => {
     let cellIdx = event.target.id;
     console.dir(event.target);
     if(event.target.classList.contains('cell') && !event.target.innerText){
         takeATurn(cellIdx);
-        
-    };
+    }
 
-    //     takeATurn();
-    //     // need this to imput current player's character
-    //     // Evaluate whether that imput won the game
-    //     // Then add an if statement, if the answer is yes, alert that the player won the game, else change player turn and reset state
-    // }else{
-    //     return
-    // }
 });
 
 
@@ -124,12 +182,16 @@ playerInfo.addEventListener('click',(event) => {
     // }
     state.playerNames[0] = player1Input.value;
     state.playerNames[1] = player2Input.value;
+    if(state.playerNames[1] === ''){
+        state.playerNames[1] = 'Computer'
+    };
     let random = startingTurnRadomizer()
     state.whoGoesFirst = random;
     state.currentPlayerIndex = random;
-            
+    window.alert(state.playerNames[state.currentPlayerIndex] + " goes first!");
     }
-// render();
+    // If computer is first player, invoke computerTurn()
+    //computerTurn()
 }
 );
 
@@ -159,4 +221,4 @@ render()
 //         main.appendChild(gameSquare);
         
 //     }
-//}
+// }

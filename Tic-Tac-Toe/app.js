@@ -1,7 +1,8 @@
 const state = {};
 
+
 const resetState = () => {
-state.main = [
+    state.main = [
     { value: '', isOccupied: false },
     { value: '', isOccupied: false },
     { value: '', isOccupied: false },
@@ -13,7 +14,7 @@ state.main = [
     { value: '', isOccupied: false },
 ];
 state.playerNames = ['', ''];
-state.whoGoesFirst = ('');
+state.whoGoesFirst = '';
 }
 
 
@@ -67,7 +68,7 @@ const renderBoard = () => {
         squareElem.classList.add('cell');
         squareElem.dataset = i;
         squareElem.innerText = state.main[i].value;
-    
+        console.log('Hello',state.main[i]);
     }
 }
 
@@ -82,22 +83,35 @@ const startingTurnRadomizer = () => {
     return firstPlayer
   }
 
-
+function switchPlayer() {
+    state.currentPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
+}
+function takeATurn(boxIndex) {
+    state.main[boxIndex] = state.whoGoesFirst;
+    const clickedBox = document.querySelector(`[data-index="${boxIndex}"]`)
+    clickedBox.innerText = state.whoGoesFirst;
+}
 
 main.addEventListener('click', (event) => {
     if(event.target.classList.contains('cell') && !event.target.innerText){
-        console.dir(event);
-        const takeATurn = () => {
-                state.main[0] = 'x';
-            }
-        // }
-        takeATurn();
-        // need this to imput current player's character
-        // Evaluate whether that imput won the game
-        // Then add an if statement, if the answer is yes, alert that the player won the game, else change player turn and reset state
-    }else{
-        return
-    }
+        const boxIndex = parseInt(event.target.dataset.index);
+        takeATurn(boxIndex);     
+    };
+    render();
+        // const takeATurn = () => {
+    //             const currentPlayer = state.whoGoesFirst % 2;
+    //             const boxIndex = parseInt(event.target.dataset);
+    //             const currentPlayerChar = currentPlayer === 0 ? 'X' : 'O';
+    //             state.main[boxIndex] = currentPlayerChar;
+    //         }
+    //     // }
+    //     takeATurn();
+    //     // need this to imput current player's character
+    //     // Evaluate whether that imput won the game
+    //     // Then add an if statement, if the answer is yes, alert that the player won the game, else change player turn and reset state
+    // }else{
+    //     return
+    // }
 });
 
 
