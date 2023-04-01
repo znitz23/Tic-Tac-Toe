@@ -18,6 +18,11 @@ main {
     border: 2px solid red;
 }
 
+p {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 /* #top-left {
     border-bottom: 4px solid red;
     border-right: 4px solid red;

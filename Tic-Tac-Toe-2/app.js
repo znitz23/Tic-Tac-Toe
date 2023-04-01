@@ -1,7 +1,5 @@
 const state = {};
 
-
-
 const resetState = () => {
     state.main = [
     { value: ''},
@@ -83,11 +81,6 @@ const renderBoard = () => {
 }
 
 
-// need this to imput current player's character
-// Evaluate whether that imput won the game
-// Then add an if statement, if the answer is yes, alert that the player won the game, else change player turn and reset state
-
-
 const startingTurnRadomizer = () => {
     const firstPlayer = Math.floor(Math.random() * 2);
     return firstPlayer
@@ -95,69 +88,95 @@ const startingTurnRadomizer = () => {
 
 const randomSquareIndex = () => {
     randomNum = Math.floor((Math.random() * 9));
-    return randomIndex;
+    return randomNum;
 }
 
-// const computerTurn = () => {
-//     let randomCellIdx = randomOpenSquare()
-//     if(state.whoGoesFirst === state.currentPlayerIndex){
-//         state.main[randomCellIdx].value = 'X';
-//         squareElem.innerText = 'X';
-//         render();
-//     }else{state.main[randomCellIdx].value = 'O'
-//         squareElem.innerText = 'O';
-//         render();
-// }
-// }
 
 const checkForWinner = () => {
-
-    if(document.getElementById("0").innerText && document.getElementById("1").innerText && document.getElementById("2").innerText){
+    
+    if((state.main[0].value === 'X') && (state.main[1].value === 'X') && (state.main[2].value === 'X')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
-    else if(document.getElementById("3").innerText && document.getElementById("4").innerText && document.getElementById("5").innerText){
+    else if((state.main[3].value === 'X') && (state.main[4].value === 'X') && (state.main[5].value === 'X')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
-    else if(document.getElementById("6").innerText && document.getElementById("7").innerText && document.getElementById("8").innerText){
+    else if((state.main[6].value === 'X') && (state.main[7].value === 'X') && (state.main[8].value === 'X')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
-    else if(document.getElementById("0").innerText && document.getElementById("3").innerText && document.getElementById("6").innerText){
+    else if((state.main[0].value === 'X') && (state.main[3].value === 'X') && (state.main[6].value === 'X')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
-    else if(document.getElementById("1").innerText && document.getElementById("4").innerText && document.getElementById("7").innerText){
+    else if((state.main[1].value === 'X') && (state.main[4].value === 'X') && (state.main[7].value === 'X')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
-    else if(document.getElementById("2").innerText && document.getElementById("5").innerText && document.getElementById("8").innerText){
+    else if((state.main[2].value === 'X') && (state.main[5].value === 'X') && (state.main[8].value === 'X')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
-    else if(document.getElementById("0").innerText && document.getElementById("4").innerText && document.getElementById("8").innerText){
+    else if((state.main[0].value === 'X') && (state.main[4].value === 'X') && (state.main[8].value === 'X')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
-    else if(document.getElementById("2").innerText && document.getElementById("4").innerText && document.getElementById("6").innerText){
+    else if((state.main[2].value === 'X') && (state.main[4].value === 'X') && (state.main[6].value === 'X')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[0].value === 'O') && (state.main[1].value === 'O') && (state.main[2].value === 'O')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[3].value === 'O') && (state.main[4].value === 'O') && (state.main[5].value === 'O')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[6].value === 'O') && (state.main[7].value === 'O') && (state.main[8].value === 'O')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[0].value === 'O') && (state.main[3].value === 'O') && (state.main[6].value === 'O')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[1].value === 'O') && (state.main[4].value === 'O') && (state.main[7].value === 'O')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[2].value === 'O') && (state.main[5].value === 'O') && (state.main[8].value === 'O')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[0].value === 'O') && (state.main[4].value === 'O') && (state.main[8].value === 'O')){
+        window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
+    }
+    else if((state.main[2].value === 'O') && (state.main[4].value === 'O') && (state.main[6].value === 'O')){
         window.alert(state.playerNames[state.currentPlayerIndex] + " won the game");
     }
     else {
+        console.log(state.main[0].value && state.main[1].value && state.main[2].value);
         state.currentPlayerIndex = Math.abs(state.currentPlayerIndex - 1);
-    // if(state.playerNames[1] === 'Computer'){
-    //     computerTurn()
-    //     };
+        if(state.playerNames[state.currentPlayerIndex] === 'Computer'){
+            computerTurn()
+        };
+    }
+
 }
+const computerTurn = () => {
+    let randomCellIdx = randomSquareIndex();
+    console.log(randomCellIdx);
+    for(i = 0; i <= 8; i++){
+        if(state.main[randomCellIdx].value === ''){
+            if(state.whoGoesFirst === state.currentPlayerIndex){
+                state.main[randomCellIdx].value = 'X';
+                render();
+            }else{state.main[randomCellIdx].value = 'O'
+                render();
 }
-
-
-
+        }
+        else{continue}
+    }
+    checkForWinner();
+}
 
 function takeATurn(cellIdx) {
     const squareElem = document.getElementById(cellIdx);
     if(state.whoGoesFirst === state.currentPlayerIndex){
         state.main[cellIdx].value = 'X';
-        squareElem.innerText = 'X';
         render();
     }else{state.main[cellIdx].value = 'O'
-        squareElem.innerText = 'O';
         render();
     }
-    checkForWinner()
+    checkForWinner();
 }
 
 
@@ -171,6 +190,14 @@ main.addEventListener('click', (event) => {
 
 });
 
+const hideInputShowNames = () => {
+    const playerInputs = document.querySelector('h2');
+    const displayNames = document.createElement('h3');
+    playerInputs.style.display = 'none';
+    main.appendChild(displayNames);
+    displayNames.innerText = ('PLAYER 1 = ' + state.playerNames[0] + ' ' + 'PLAYER 2 = ' + state.playerNames[1]);
+
+}
 
 playerInfo.addEventListener('click',(event) => {
     const player1Input = document.querySelector('input[name="player1"]');
@@ -189,11 +216,12 @@ playerInfo.addEventListener('click',(event) => {
     state.whoGoesFirst = random;
     state.currentPlayerIndex = random;
     window.alert(state.playerNames[state.currentPlayerIndex] + " goes first!");
-    }
-    // If computer is first player, invoke computerTurn()
-    //computerTurn()
-}
-);
+    hideInputShowNames();
+    };
+    if(state.playerNames[state.currentPlayerIndex] === 'Computer'){
+        computerTurn()
+    };
+});
 
 
 function render() {
@@ -211,14 +239,3 @@ render()
 
 
 
-
-
-
-
-// function createBoard() {
-//     const div = 
-//     for (let i = 0; i <= 9; i++){
-//         main.appendChild(gameSquare);
-        
-//     }
-// }
