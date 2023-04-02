@@ -31,6 +31,7 @@ const playerNames = document.createElement('p');
 
 body.appendChild(titleElem);
 titleElem.innerText = 'Tic-Tac-Toe';
+titleElem.setAttribute('id','title')
 
 body.appendChild(main);
 main.id = 'board';
@@ -46,12 +47,14 @@ const renderPlayer = () => {
         playerNames.appendChild(nameBoxOne);
         nameBoxOne.setAttribute('type','text');
         nameBoxOne.setAttribute('name','player1');
-        nameBoxOne.placeholder = 'Enter Player One Name';
+        nameBoxTwo.setAttribute('id','nb')
+        nameBoxOne.placeholder = 'Enter Player One';
         
         playerNames.appendChild(nameBoxTwo);
         nameBoxTwo.setAttribute('type','text');
         nameBoxTwo.setAttribute('name','player2');
-        nameBoxTwo.placeholder = 'Enter Player One Name';
+        nameBoxTwo.setAttribute('id','nb')
+        nameBoxTwo.placeholder = 'Enter Player Two';
         
         const startButton = document.createElement('button');
         playerNames.appendChild(startButton);
@@ -181,47 +184,51 @@ function takeATurn(cellIdx) {
 
 
 
-main.addEventListener('click', (event) => {
-    let cellIdx = event.target.id;
-    console.dir(event.target);
-    if(event.target.classList.contains('cell') && !event.target.innerText){
-        takeATurn(cellIdx);
-    }
 
-});
 
 const hideInputShowNames = () => {
     const playerInputs = document.querySelector('h2');
-    const displayNames = document.createElement('h3');
-    playerInputs.style.display = 'none';
-    main.appendChild(displayNames);
-    displayNames.innerText = ('PLAYER 1 = ' + state.playerNames[0] + ' ' + 'PLAYER 2 = ' + state.playerNames[1]);
-
+    const displayName1 = document.createElement('h3');
+    const displayName2 = document.createElement('h3');
+    nameBoxOne.style.display = 'none';
+    nameBoxTwo.style.display = 'none';
+    startButton.style.display = 'none';
+    playerInfo.appendChild(displayName1);
+    playerInfo.appendChild(displayName2);
+    displayName1.innerText = ('PLAYER 1 = ' + state.playerNames[0]);    
+    displayName2.innerText = ('PLAYER 2 = ' + state.playerNames[1]);    
 }
 
 playerInfo.addEventListener('click',(event) => {
     const player1Input = document.querySelector('input[name="player1"]');
     const player2Input = document.querySelector('input[name="player2"]');
     if(event.target.id === 'startButton'){
-    //     if (nameBoxOne.value.length > 0){
-    //         startButton.removeAttribute('disabled');
-    //     // }else {startButton.setAttribute('disabled', 'disabled');
-    // }
-    state.playerNames[0] = player1Input.value;
-    state.playerNames[1] = player2Input.value;
-    if(state.playerNames[1] === ''){
-        state.playerNames[1] = 'Computer'
-    };
-    let random = startingTurnRadomizer()
-    state.whoGoesFirst = random;
-    state.currentPlayerIndex = random;
-    window.alert(state.playerNames[state.currentPlayerIndex] + " goes first!");
-    hideInputShowNames();
-    };
-    if(state.playerNames[state.currentPlayerIndex] === 'Computer'){
-        computerTurn()
-    };
-});
+        //     if (nameBoxOne.value.length > 0){
+            //         startButton.removeAttribute('disabled');
+            //     // }else {startButton.setAttribute('disabled', 'disabled');
+            // }
+            state.playerNames[0] = player1Input.value;
+            state.playerNames[1] = player2Input.value;
+            if(state.playerNames[1] === ''){
+                state.playerNames[1] = 'Computer'
+            };
+            let random = startingTurnRadomizer()
+            state.whoGoesFirst = random;
+            state.currentPlayerIndex = random;
+            window.alert(state.playerNames[state.currentPlayerIndex] + " goes first!");
+            hideInputShowNames();
+            main.addEventListener('click', (event) => {
+                let cellIdx = event.target.id;
+                console.dir(event.target);
+                if(event.target.classList.contains('cell') && !event.target.innerText){
+                    takeATurn(cellIdx);
+                }
+            });
+        };
+        if(state.playerNames[state.currentPlayerIndex] === 'Computer'){
+            computerTurn()
+        };
+    });
 
 
 function render() {
