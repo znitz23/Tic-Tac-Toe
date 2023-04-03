@@ -24,7 +24,7 @@ body {
     flex-wrap: wrap;
     width: 54vh;
     height: 54vh;
-    margin: 10px;
+    margin: auto;
 }
 
 .cell {
